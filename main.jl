@@ -18,11 +18,13 @@ config = 3
 m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
 num_particles = 5000
+
 resampler = LidarResampler(num_particles, LowVarianceResampler(num_particles))
 # for the bumper environment
 # resampler = BumperResampler(num_particles)
 
-spf = SimpleParticleFilter(m, resampler)
+spf = BasicParticleFilter(m, resampler, num_particles)
+# spf = SIRParticleFilter(m, num_particles)
 
 v_noise_coefficient = 2.0
 om_noise_coefficient = 0.5
@@ -32,10 +34,10 @@ belief_updater = RoombaParticleFilter(spf, v_noise_coefficient, om_noise_coeffic
 total_rewards_to_end = []
 total_rewards_qmdp = []
 
-save_path = "qmdp_discrete_1.jld"
+save_path = "qmdp_discrete_3.jld"
 p_qmdp = load_policy(save_path)
 
-for exp = 1:75
+for exp = 1:10
     println(string(exp))
 
     Random.seed!(exp)

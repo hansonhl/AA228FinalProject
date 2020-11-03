@@ -21,7 +21,7 @@ Fields:
 - `om_noise_coeff::Float64`coefficient to scale particle-propagation noise in turn-rate
 """
 mutable struct RoombaParticleFilter <: POMDPs.Updater
-    spf::SimpleParticleFilter
+    spf
     v_noise_coeff::Float64
     om_noise_coeff::Float64
 end
@@ -74,13 +74,14 @@ function POMDPs.update(up::RoombaParticleFilter, b::ParticleCollection{RoombaSta
     all_terminal = true
     for i in 1:n_particles(b)
         s = ps[i]
-        if !isterminal(up.spf.model, s)
+        if !isterminal(up.spf.predict_model, s)
             all_terminal = false
             # noise added here:
             a_pert = a + SVector(up.v_noise_coeff*(rand(up.spf.rng)-0.5), up.om_noise_coeff*(rand(up.spf.rng)-0.5))
-            sp = generate_s(up.spf.model, s, a_pert, up.spf.rng)
+            # sp = generate_s(up.spf.predict_model, s, a_pert, up.spf.rng)
+            sp = @gen(:sp)(up.spf.predict_model, s, a_pert, up.spf.rng) # compatible with new version
             push!(pm, sp)
-            push!(wm, obs_weight(up.spf.model, s, a_pert, sp, o))
+            push!(wm, obs_weight(up.spf.predict_model, s, a_pert, sp, o))
         end
     end
     # if all particles are terminal, return previous belief state
@@ -88,10 +89,10 @@ function POMDPs.update(up::RoombaParticleFilter, b::ParticleCollection{RoombaSta
         return b
     end
 
-    return resample(up.spf.resample, WeightedParticleBelief{RoombaState}(pm, wm, sum(wm), nothing), up.spf.rng)
+    return resample(up.spf.resampler, WeightedParticleBelief{RoombaState}(pm, wm, sum(wm), nothing), up.spf.rng)
 end
 
 # initialize belief state
 function ParticleFilters.initialize_belief(up::RoombaParticleFilter, d::Any)
-    resample(up.spf.resample, d, up.spf.rng)
+    resample(up.spf.resampler, d, up.spf.rng)
 end

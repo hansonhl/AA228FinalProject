@@ -22,10 +22,10 @@ function DiscreteLidarRoombaPOMDP(cont_m::RoombaPOMDP, num_x_pts::Int64, num_y_p
 end
 
 function init_gamma(P::RoombaPOMDP)
-    n_a = n_actions(P)
-    n_s = n_states(P)
+    n_a = length(actions(P))
+    n_s = length(states(P))
     println("Constructed Γ vector with $(n_a) actions and $(n_s) states")
-    return zeros(Float64, n_actions(P), n_states(P))
+    return zeros(Float64, n_a, n_s)
 end
 
 struct QMDP
@@ -85,7 +85,7 @@ end
 
 
 function discretize_belief(P::RoombaPOMDP, cont_b::ParticleCollection{RoombaState})
-    discr_b = zeros(Float64, n_states(P))
+    discr_b = zeros(Float64, length(states(P)))
     for (cont_s, w) in weighted_particles(cont_b)
         discr_b[stateindex(P, cont_s)] += w
     end
@@ -117,7 +117,7 @@ function main()
     config = 3 # 1,2, or 3
     cont_m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
-    P = DiscreteLidarRoombaPOMDP(cont_m, 50, 50, 20, 5.0, 0.5, 1:0.5:80)
+    P = DiscreteLidarRoombaPOMDP(cont_m, 25, 25, 10, 5.0, 0.5, 1:0.5:80)
     M = QMDP(30)
 
     println("Starting to solve")

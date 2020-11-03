@@ -64,7 +64,7 @@ Define the Roomba MDP.
     v_max::Float64  = 10.0  # m/s
     om_max::Float64 = 1.0   # rad/s
     dt::Float64     = 0.5   # s
-    contact_pen::Float64 = -1.0 
+    contact_pen::Float64 = -1.0
     time_pen::Float64 = -0.1
     goal_reward::Float64 = 10
     stairs_penalty::Float64 = -10
@@ -104,7 +104,7 @@ function DiscreteRoombaStateSpace(num_x_pts::Int, num_y_pts::Int, num_theta_pts:
     # hardcoded room-limits
     # watch for consistency with env_room
     XLIMS = [-30.0, 20.0]
-    YLIMS = [-30.0, 20.0] 
+    YLIMS = [-30.0, 20.0]
 
     x_step = (XLIMS[2]-XLIMS[1])/(num_x_pts-1)
     y_step = (YLIMS[2]-YLIMS[1])/(num_y_pts-1)
@@ -140,7 +140,7 @@ struct Bumper end
 POMDPs.obstype(::Type{Bumper}) = Bool
 POMDPs.obstype(::Bumper) = Bool
 
-struct Lidar 
+struct Lidar
     ray_stdev::Float64 # measurement noise: see POMDPs.observation definition
                        # below for usage
 end
@@ -182,7 +182,7 @@ RoombaPOMDP(;sensor=Bumper(), mdp=RoombaMDP()) = RoombaPOMDP(sensor,mdp)
 wall_contact(e::RoombaModel, state) = wall_contact(mdp(e).room, state[1:2])
 
 POMDPs.actions(m::RoombaModel) = mdp(m).aspace
-POMDPs.n_actions(m::RoombaModel) = length(mdp(m).aspace)
+# POMDPs.n_actions(m::RoombaModel) = length(mdp(m).aspace)
 
 # maps a RoombaAct to an index in a RoombaModel with discrete actions
 function POMDPs.actionindex(m::RoombaModel, a::RoombaAct)
@@ -219,7 +219,7 @@ function POMDPs.initialstate(m::RoombaModel, rng::AbstractRNG)
         is = index_to_state(m, isi)
     end
 
-    return is 
+    return is
 end
 
 # transition Roomba state given curent state and action
@@ -281,18 +281,18 @@ function POMDPs.states(m::RoombaModel)
 end
 
 # return the number of states in a DiscreteRoombaStateSpace
-function POMDPs.n_states(m::RoombaModel)
-    if mdp(m).sspace isa DiscreteRoombaStateSpace
-        ss = mdp(m).sspace
-        nstates = prod((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1, 
-                            convert(Int, diff(ss.YLIMS)[1]/ss.y_step)+1,
-                            round(Int, 2*pi/ss.th_step)+1,
-                            3))
-        return nstates
-    else
-        error("State-space must be DiscreteRoombaStateSpace.")
-    end
-end
+# function POMDPs.n_states(m::RoombaModel)
+#     if mdp(m).sspace isa DiscreteRoombaStateSpace
+#         ss = mdp(m).sspace
+#         nstates = prod((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1,
+#                             convert(Int, diff(ss.YLIMS)[1]/ss.y_step)+1,
+#                             round(Int, 2*pi/ss.th_step)+1,
+#                             3))
+#         return nstates
+#     else
+#         error("State-space must be DiscreteRoombaStateSpace.")
+#     end
+# end
 
 # map a RoombaState to an index in a DiscreteRoombaStateSpace
 function POMDPs.stateindex(m::RoombaModel, s::RoombaState)
@@ -303,7 +303,7 @@ function POMDPs.stateindex(m::RoombaModel, s::RoombaState)
         thind = floor(Int, (s[3] - (-pi)) / ss.th_step + 0.5) + 1
         stind = convert(Int, s[4] + 2)
 
-        lin = LinearIndices((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1, 
+        lin = LinearIndices((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1,
                             convert(Int, diff(ss.YLIMS)[1]/ss.y_step)+1,
                             round(Int, 2*pi/ss.th_step)+1,
                             3))
@@ -317,7 +317,7 @@ end
 function index_to_state(m::RoombaModel, si::Int)
     if mdp(m).sspace isa DiscreteRoombaStateSpace
         ss = mdp(m).sspace
-        lin = CartesianIndices((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1, 
+        lin = CartesianIndices((convert(Int, diff(ss.XLIMS)[1]/ss.x_step)+1,
                             convert(Int, diff(ss.YLIMS)[1]/ss.y_step)+1,
                             round(Int, 2*pi/ss.th_step)+1,
                             3))
@@ -339,10 +339,10 @@ end
 
 # defines reward function R(s,a,s')
 function POMDPs.reward(m::RoombaModel,
-                s::AbstractVector{Float64}, 
+                s::AbstractVector{Float64},
                 a::AbstractVector{Float64},
                 sp::AbstractVector{Float64})
-    
+
     # penalty for each timestep elapsed
     cum_reward = mdp(m).time_pen
 
@@ -357,24 +357,24 @@ function POMDPs.reward(m::RoombaModel,
     cum_reward += mdp(m).goal_reward*(sp.status == 1.0)
     cum_reward += mdp(m).stairs_penalty*(sp.status == -1.0)
 
-    return cum_reward  
+    return cum_reward
 end
 
 # determine if a terminal state has been reached
 POMDPs.isterminal(m::RoombaModel, s::AbstractVector{Float64}) = abs(s.status) > 0.0
 
 # Bumper POMDP observation
-function POMDPs.observation(m::BumperPOMDP, 
+function POMDPs.observation(m::BumperPOMDP,
                             a::AbstractVector{Float64},
                             sp::AbstractVector{Float64})
     return Deterministic(wall_contact(m, sp)) # in {0.0,1.0}
 end
 
-POMDPs.n_observations(m::BumperPOMDP) = 2
+# POMDPs.n_observations(m::BumperPOMDP) = 2
 POMDPs.observations(m::BumperPOMDP) = [false, true]
 
 # Lidar POMDP observation
-function POMDPs.observation(m::LidarPOMDP, 
+function POMDPs.observation(m::LidarPOMDP,
                             a::AbstractVector{Float64},
                             sp::AbstractVector{Float64})
     x, y, th = sp
@@ -389,19 +389,19 @@ function POMDPs.observation(m::LidarPOMDP,
     return Truncated(Normal(rl, sigma), 0.0, Inf)
 end
 
-function POMDPs.n_observations(m::LidarPOMDP)
-    error("n_observations not defined for continuous observations.")
-end
+# function POMDPs.n_observations(m::LidarPOMDP)
+#     error("n_observations not defined for continuous observations.")
+# end
 
 function POMDPs.observations(m::LidarPOMDP)
     error("LidarPOMDP has continuous observations. Use DiscreteLidarPOMDP for discrete observation spaces.")
 end
 
 # DiscreteLidar POMDP observation
-function POMDPs.observation(m::DiscreteLidarPOMDP, 
+function POMDPs.observation(m::DiscreteLidarPOMDP,
                             a::AbstractVector{Float64},
                             sp::AbstractVector{Float64})
-    
+
     m_lidar = LidarPOMDP(Lidar(m.sensor.ray_stdev), mdp(m))
 
     d = observation(m_lidar, a, sp)
@@ -413,9 +413,9 @@ function POMDPs.observation(m::DiscreteLidarPOMDP,
     return SparseCat(1:length(d_disc), d_disc)
 end
 
-POMDPs.n_observations(m::DiscreteLidarPOMDP) = length(m.sensor.disc_points) + 1
+# POMDPs.n_observations(m::DiscreteLidarPOMDP) = length(m.sensor.disc_points) + 1
 POMDPs.observations(m::DiscreteLidarPOMDP) = vec(1:n_observations(m))
-                        
+
 # define discount factor
 POMDPs.discount(m::RoombaModel) = 0.95
 
