@@ -12,6 +12,7 @@ using Printf
 
 include("policy_baseline.jl")
 include("policy_qmdp.jl")
+include("policy_mcts.jl")
 
 sensor = Lidar()
 config = 3
@@ -31,27 +32,30 @@ om_noise_coefficient = 0.5
 
 belief_updater = RoombaParticleFilter(spf, v_noise_coefficient, om_noise_coefficient)
 
-total_rewards_to_end = []
-total_rewards_qmdp = []
+total_rewards = []
 
 save_path = "qmdp_discrete_3.jld"
 p_qmdp = load_policy(save_path)
 
-for exp = 1:10
+p_mcts, p_mcts_qmdp, p_mcts_mdp = get_mcts_policy()
+
+# p = p_to_end
+# p = p_qmdp
+p = p_mcts_mdp
+
+for exp = 1:50
     println(string(exp))
 
     Random.seed!(exp)
 
-    p_to_end = ToEnd(0, get_goal_xy(m))
-    traj_rewards_to_end = sum([step.r for step in stepthrough(m,p_to_end,belief_updater, max_steps=100)])
-    traj_rewards_qmdp = sum([step.r for step in stepthrough(m,p_qmdp,belief_updater, max_steps=100)])
-
-    push!(total_rewards_to_end, traj_rewards_to_end)
-    push!(total_rewards_qmdp, traj_rewards_qmdp)
+    traj_rewards = sum([step.r for step in stepthrough(m,p,belief_updater, max_steps=100)])
+    println(traj_rewards)
+    push!(total_rewards, traj_rewards)
 end
 
-# -1.541
-# 2.011
+# Baseline: -1.541
+# QMDP:2.011
+# QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 6.397732
+# MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 2.998
 # in 50 trials
-@printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(5))
-@printf("QMDP Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_qmdp), std(total_rewards_qmdp)/sqrt(5))
+@printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(5))
