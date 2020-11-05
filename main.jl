@@ -13,7 +13,7 @@ include("policy_qmdp.jl")
 include("policy_mcts.jl")
 
 sensor = Lidar()
-config = 1
+config = 3
 m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
 num_particles = 5000
@@ -35,7 +35,7 @@ total_rewards = []
 save_path = "qmdp_discrete_3.jld"
 p_qmdp = load_policy(save_path)
 
-p_mcts, p_mcts_qmdp, p_mcts_mdp = get_mcts_policy()
+p_mcts, p_mcts_qmdp, p_mcts_mdp = get_mcts_policy(config)
 
 # p = p_to_end
 # p = p_qmdp
@@ -53,7 +53,7 @@ end
 
 
 @printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(length(total_rewards)))
-# Config 1, 50 trials
+# Config 3, 50 trials
 # QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 0.904 
 # MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 0.948
 
