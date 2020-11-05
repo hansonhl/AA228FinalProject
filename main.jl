@@ -32,7 +32,7 @@ belief_updater = RoombaParticleFilter(spf, v_noise_coefficient, om_noise_coeffic
 
 total_rewards = []
 
-save_path = "qmdp_discrete_1.jld"
+save_path = "qmdp_discrete_3.jld"
 p_qmdp = load_policy(save_path)
 
 p_mcts, p_mcts_qmdp, p_mcts_mdp = get_mcts_policy()
@@ -52,10 +52,10 @@ for exp = 1:50
 end
 
 
-@printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(5))
+@printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(length(total_rewards)))
 # Config 1, 50 trials
-# QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 6.397732
-# MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 2.998
+# QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 0.904 
+# MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 0.948
 
 # Config 1
 # ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 3.870
