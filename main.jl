@@ -5,8 +5,6 @@ using BeliefUpdaters
 using Statistics
 using ParticleFilters
 using POMDPSimulators
-using Cairo
-using Gtk
 using Random
 using Printf
 
@@ -14,7 +12,7 @@ include("policy_baseline.jl")
 include("policy_qmdp.jl")
 
 sensor = Lidar()
-config = 3
+config = 1
 m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
 num_particles = 5000
@@ -34,10 +32,10 @@ belief_updater = RoombaParticleFilter(spf, v_noise_coefficient, om_noise_coeffic
 total_rewards_to_end = []
 total_rewards_qmdp = []
 
-save_path = "qmdp_discrete_3.jld"
+save_path = "qmdp_discrete_1.jld"
 p_qmdp = load_policy(save_path)
 
-for exp = 1:10
+for exp = 1:100
     println(string(exp))
 
     Random.seed!(exp)
@@ -53,5 +51,18 @@ end
 # -1.541
 # 2.011
 # in 50 trials
+
+# Config 1
+# ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 3.870
+# QMDP Mean Total Reward: 2.389, StdErr Total Reward: 3.194
+
+# Config 2
+# ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 3.811
+# QMDP Mean Total Reward: 1.054, StdErr Total Reward: 3.858
+
+# Config 3
+# ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 3.877
+# QMDP Mean Total Reward: 1.393, StdErr Total Reward: 3.690
+
 @printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(5))
 @printf("QMDP Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_qmdp), std(total_rewards_qmdp)/sqrt(5))
