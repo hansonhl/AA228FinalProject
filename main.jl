@@ -5,8 +5,6 @@ using BeliefUpdaters
 using Statistics
 using ParticleFilters
 using POMDPSimulators
-using Cairo
-using Gtk
 using Random
 using Printf
 
@@ -15,7 +13,7 @@ include("policy_qmdp.jl")
 include("policy_mcts.jl")
 
 sensor = Lidar()
-config = 3
+config = 1
 m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
 num_particles = 5000
@@ -34,7 +32,7 @@ belief_updater = RoombaParticleFilter(spf, v_noise_coefficient, om_noise_coeffic
 
 total_rewards = []
 
-save_path = "qmdp_discrete_3.jld"
+save_path = "qmdp_discrete_1.jld"
 p_qmdp = load_policy(save_path)
 
 p_mcts, p_mcts_qmdp, p_mcts_mdp = get_mcts_policy()
@@ -53,9 +51,21 @@ for exp = 1:50
     push!(total_rewards, traj_rewards)
 end
 
-# Baseline: -1.541
-# QMDP:2.011
+
+@printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(5))
+# Config 1, 50 trials
 # QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 6.397732
 # MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 2.998
-# in 50 trials
-@printf("Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards), std(total_rewards)/sqrt(5))
+
+# Config 1
+# ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 3.870
+# QMDP Mean Total Reward: 2.389, StdErr Total Reward: 3.194
+
+# Config 2
+# ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 3.811
+# QMDP Mean Total Reward: 1.054, StdErr Total Reward: 3.858
+
+# Config 3
+# ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 3.877
+# QMDP Mean Total Reward: 1.393, StdErr Total Reward: 3.690
+

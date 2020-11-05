@@ -114,16 +114,16 @@ end
 
 function main()
     sensor = Lidar() # or Bumper() for the bumper version of the environment
-    config = 3 # 1,2, or 3
+    config = 2 # 1,2, or 3
     cont_m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
-    P = DiscreteLidarRoombaPOMDP(cont_m, 25, 25, 10, 5.0, 0.5, 1:0.5:80)
+    P = DiscreteLidarRoombaPOMDP(cont_m, 50, 50, 20, 5.0, 0.5, 1:0.5:80)
     M = QMDP(30)
 
     println("Starting to solve")
     👮y = solve(M, P)
     println("Finished solving, got policy")
-    save_path = "qmdp_discrete_1.jld"
+    save_path = "qmdp_discrete_2.jld"
 
     save_policy(save_path, 👮y)
     # 👮y = load_policy(save_path)
