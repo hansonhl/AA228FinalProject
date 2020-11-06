@@ -76,17 +76,17 @@ function main()
     # QMDP + MCTS, c=10, iter=2000: mean 2.732, stderr 0.904
     # MDP value estimation + MCTS, c=10, iter=2000: mean 2.990 stderr 0.948
 
-    # Config 1
-    # ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 3.870
-    # QMDP Mean Total Reward: 2.389, StdErr Total Reward: 3.194
+    # Config 1, 100 trials
+    # ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 0.865
+    # QMDP Mean Total Reward: 2.389, StdErr Total Reward: 0.714
 
-    # Config 2
-    # ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 3.811
-    # QMDP Mean Total Reward: 1.054, StdErr Total Reward: 3.858
+    # Config 2, 100 trials
+    # ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 0.852
+    # QMDP Mean Total Reward: 1.054, StdErr Total Reward: 0.863
 
-    # Config 3
-    # ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 3.877
-    # QMDP Mean Total Reward: 1.393, StdErr Total Reward: 3.690
+    # Config 3, 100 trials
+    # ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 0.867
+    # QMDP Mean Total Reward: 1.393, StdErr Total Reward: 0.825
 
     @printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(num_trials))
     @printf("QMDP Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_qmdp), std(total_rewards_qmdp)/sqrt(num_trials))
