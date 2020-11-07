@@ -113,11 +113,18 @@ function load_policy(save_path::String)
 end
 
 function main()
-    sensor = Lidar() # or Bumper() for the bumper version of the environment
     config = parse(Int64, ARGS[1])
+    discrete_setting = parse(Int64, ARGS[2])
+    sensor = Lidar() # or Bumper() for the bumper version of the environment
+
     cont_m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
-    P = DiscreteLidarRoombaPOMDP(cont_m, 50, 50, 20, 5.0, 0.5, 1:0.5:80)
+
+    if discrete_setting == 1
+        P = DiscreteLidarRoombaPOMDP(cont_m, 50, 50, 20, 5.0, 0.5, 1:0.5:80)
+    elseif discrete_setting == 2
+        P = DiscreteLidarRoombaPOMDP(cont_m, 25, 25, 10, 5.0, 0.5, 1:0.5:80)
+    end
     M = QMDP(30)
 
     println("Starting to solve")
