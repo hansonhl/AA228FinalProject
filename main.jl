@@ -78,15 +78,18 @@ function main()
 
     # Config 1, 100 trials
     # ToEnd Mean Total Reward: -2.045, StdErr Total Reward: 0.865
-    # QMDP Mean Total Reward: 2.389, StdErr Total Reward: 0.714
+    # QMDP (50) Mean Total Reward: 2.389, StdErr Total Reward: 0.714
+    # QMDP (25) Mean Total Reward: 1.312, StdErr Total Reward: 0.841
 
     # Config 2, 100 trials
     # ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 0.852
-    # QMDP Mean Total Reward: 1.054, StdErr Total Reward: 0.863
+    # QMDP (50) Mean Total Reward: 1.054, StdErr Total Reward: 0.863
+    # QMDP (25) Mean Total Reward: -0.576, StdErr Total Reward: 0.854
 
     # Config 3, 100 trials
     # ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 0.867
-    # QMDP Mean Total Reward: 1.393, StdErr Total Reward: 0.825
+    # QMDP (50) Mean Total Reward: 1.393, StdErr Total Reward: 0.825
+    # QMDP (25) Mean Total Reward: 0.848, StdErr Total Reward: 0.868
 
     @printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(num_trials))
     @printf("QMDP Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_qmdp), std(total_rewards_qmdp)/sqrt(num_trials))
