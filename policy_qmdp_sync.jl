@@ -140,7 +140,7 @@ function main()
     println("Starting to solve")
     👮y = solve(M, P)
     println("Finished solving, got policy")
-    save_path = "qmdp_discrete_$(config)_async.jld"
+    save_path = "qmdp_discrete_$(config)_sync.jld"
 
     save_policy(save_path, 👮y)
     # 👮y = load_policy(save_path)
