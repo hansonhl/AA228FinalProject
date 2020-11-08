@@ -54,7 +54,7 @@ function main()
     
     solver = QMDPSolver(max_iterations=30, belres=1e-3)
     println("Starting to solve")
-    policy = solve(solver, P)
+    policy = solve(solver, P) # async as shown in https://github.com/JuliaPOMDP/DiscreteValueIteration.jl/blob/master/src/vanilla.jl#L132
     println("Finished solving, got policy")
 
     alphas = hcat(policy.alphas...)
