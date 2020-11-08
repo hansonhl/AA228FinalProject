@@ -85,3 +85,38 @@ Got average utility 10.117860916468183
 Iteration 15
 Got average utility 11.163436071644753
 Iteration 16
+Got average utility 12.156732469142796
+Iteration 17
+Got average utility 13.10036404669825
+Iteration 18
+Got average utility 13.996814045457834
+Iteration 19
+Got average utility 14.848441544223222
+Iteration 20
+Got average utility 15.657487668064876
+Iteration 21
+Got average utility 16.426081485648616
+Iteration 22
+Got average utility 17.156245612474933
+Iteration 23
+Got average utility 17.849901532844477
+Iteration 24
+Got average utility 18.50887465726109
+Iteration 25
+Got average utility 19.1348991254883
+Iteration 26
+Got average utility 19.729622370254134
+Iteration 27
+Got average utility 20.294609452720298
+Iteration 28
+Got average utility 20.831347181158353
+Iteration 29
+Got average utility 21.341248023200148
+Iteration 30
+Got average utility 21.825653823077605
+Average time per iteration: 144.58560287896668 s
+Finished solving, got policy
+Saving policy to qmdp_discrete_1.jld
+###############################
+end time: 2020-11-07 18:08:46.785108
+elapsed time: 1:13:04.293182

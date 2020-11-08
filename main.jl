@@ -47,7 +47,7 @@ function main()
     # total_rewards = []
 
 
-    save_path = "qmdp_discrete_50_$(config).jld"
+    save_path = "qmdp_discrete_25_$(config).jld"
     p_qmdp = load_policy(save_path)
 
 
