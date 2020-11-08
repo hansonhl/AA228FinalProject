@@ -1,0 +1,96 @@
+Running main
+Starting to solve
+Constructed Γ vector with 15 actions and 150000 states
+Iteration 1
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility -0.030399999999978257
+Iteration 2
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 0.031141000000017228
+Iteration 3
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 0.22591664999937963
+Iteration 4
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 0.566542869999767
+Iteration 5
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 1.0604885635003705
+Iteration 6
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 1.6926280465414802
+Iteration 7
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 2.446600362324625
+Iteration 8
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 3.3408978888188106
+Iteration 9
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 4.360422501182239
+Iteration 10
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 5.486909948468473
+Iteration 11
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 6.6729044555409365
+Iteration 12
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 7.862657447380903
+Iteration 13
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 9.017396761842758
+Iteration 14
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 10.117860916468183
+Iteration 15
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 11.163436071644753
+Iteration 16
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 12.156732469142796
+Iteration 17
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 13.10036404669825
+Iteration 18
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 13.996814045457834
+Iteration 19
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 14.848441544223222
+Iteration 20
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 15.657487668064876
+Iteration 21
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 16.426081485648616
+Iteration 22
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 17.156245612474933
+Iteration 23
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 17.849901532844477
+Iteration 24
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 18.50887465726109
+Iteration 25
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 19.1348991254883
+Iteration 26
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 19.729622370254134
+Iteration 27
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 20.294609452720298
+Iteration 28
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 20.831347181158353
+Iteration 29
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 21.341248023200148
+Iteration 30
+Constructed Γ vector with 15 actions and 150000 states
+Got average utility 21.825653823077605
+Average time per iteration: 114.30390077153334 s
+Finished solving, got policy
+Saving policy to qmdp_discrete_1_async.jld
