@@ -47,7 +47,7 @@ function main()
     # total_rewards = []
 
 
-    save_path = "qmdp_discrete_$(config).jld"
+    save_path = "qmdp_discrete_50_$(config).jld"
     p_qmdp = load_policy(save_path)
 
 
@@ -56,11 +56,11 @@ function main()
 
         Random.seed!(exp)
 
-        p_to_end = ToEnd(0, get_goal_xy(m))
-        traj_rewards_to_end = sum([step.r for step in stepthrough(m,p_to_end,belief_updater, max_steps=100)])
+        # p_to_end = ToEnd(0, get_goal_xy(m))
+        # traj_rewards_to_end = sum([step.r for step in stepthrough(m,p_to_end,belief_updater, max_steps=100)])
         traj_rewards_qmdp = sum([step.r for step in stepthrough(m,p_qmdp,belief_updater, max_steps=100)])
 
-        push!(total_rewards_to_end, traj_rewards_to_end)
+        # push!(total_rewards_to_end, traj_rewards_to_end)
         push!(total_rewards_qmdp, traj_rewards_qmdp)
 
         #=
@@ -84,14 +84,14 @@ function main()
     # Config 2, 100 trials
     # ToEnd Mean Total Reward: -6.004, StdErr Total Reward: 0.852
     # QMDP (50) Mean Total Reward: 1.054, StdErr Total Reward: 0.863
-    # QMDP (25) Mean Total Reward: -0.576, StdErr Total Reward: 0.854
+    # QMDP (25) Mean Total Reward: -0.576, StdErr Total Reward: 0.854, Train Time: 18.14s per iteration
 
     # Config 3, 100 trials
     # ToEnd Mean Total Reward: -1.879, StdErr Total Reward: 0.867
     # QMDP (50) Mean Total Reward: 1.393, StdErr Total Reward: 0.825
     # QMDP (25) Mean Total Reward: 0.848, StdErr Total Reward: 0.868
 
-    @printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(num_trials))
+    # @printf("ToEnd Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_to_end), std(total_rewards_to_end)/sqrt(num_trials))
     @printf("QMDP Mean Total Reward: %.3f, StdErr Total Reward: %.3f\n", mean(total_rewards_qmdp), std(total_rewards_qmdp)/sqrt(num_trials))
 end
 

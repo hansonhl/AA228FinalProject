@@ -1,0 +1,122 @@
+slurm submission log: 2020-11-07 13:19:30.899899
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=2
+#SBATCH --gres=gpu:0
+#SBATCH --job-name=hansonlu-job-2088880
+#SBATCH --mem=64G
+#SBATCH --open-mode=append
+#SBATCH --output=hansonlu-job-2088880.out
+#SBATCH --partition=john
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'julia --project=. policy_qmdp.jl 2 2'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1874784
+
+
+
+###############################
+
+###############################
+start time: 2020-11-07 13:19:39.893358
+machine: john2.stanford.edu
+conda env: py-3.6.8
+###############################
+running following processes
+
+	julia --project=. policy_qmdp.jl 2 2
+
+
+###############################
+command outputs: 
+
+
+Running main
+Starting to solve
+Constructed Γ vector with 15 actions and 18750 states
+Iteration 1
+Got average utility -0.04976000000001507
+Iteration 2
+Got average utility 0.04531999999997801
+Iteration 3
+Got average utility 0.3171148000000793
+Iteration 4
+Got average utility 0.7541766399997354
+Iteration 5
+Got average utility 1.3914054689996902
+Iteration 6
+Got average utility 2.250449038150779
+Iteration 7
+Got average utility 3.2997902461841835
+Iteration 8
+Got average utility 4.539293864882351
+Iteration 9
+Got average utility 5.943998908243404
+Iteration 10
+Got average utility 7.470583489569984
+Iteration 11
+Got average utility 9.081883635979255
+Iteration 12
+Got average utility 10.717113029116497
+Iteration 13
+Got average utility 12.338467933425473
+Iteration 14
+Got average utility 13.917318715870074
+Iteration 15
+Got average utility 15.432496286848998
+Iteration 16
+Got average utility 16.87888262106282
+Iteration 17
+Got average utility 18.256556382208398
+Iteration 18
+Got average utility 19.56610927211198
+Iteration 19
+Got average utility 20.810184517526938
+Iteration 20
+Got average utility 21.992056000675024
+Iteration 21
+Got average utility 23.11483390964819
+Iteration 22
+Got average utility 24.181472923194328
+Iteration 23
+Got average utility 25.194779986051238
+Iteration 24
+Got average utility 26.15742169576616
+Iteration 25
+Got average utility 27.071931319981342
+Iteration 26
+Got average utility 27.940715463014424
+Iteration 27
+Got average utility 28.766060398882797
+Iteration 28
+Got average utility 29.55013808793956
+Iteration 29
+Got average utility 30.295011892573008
+Iteration 30
+Got average utility 31.002642006956936
+Average time per iteration: 19.8289200919 s
+Finished solving, got policy
+Saving policy to qmdp_discrete_2.jld
+###############################
+end time: 2020-11-07 13:30:32.161570
+elapsed time: 0:10:52.268212

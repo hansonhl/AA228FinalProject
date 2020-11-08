@@ -1,0 +1,87 @@
+slurm submission log: 2020-11-07 16:55:14.408440
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=2
+#SBATCH --gres=gpu:0
+#SBATCH --job-name=hansonlu-job-3951873
+#SBATCH --mem=64G
+#SBATCH --open-mode=append
+#SBATCH --output=outputs/qmdp_50_1.out
+#SBATCH --partition=john
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'julia --project=. policy_qmdp.jl 1 1'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1874915
+
+
+
+###############################
+
+###############################
+start time: 2020-11-07 16:55:42.491926
+machine: john1.stanford.edu
+conda env: py-3.6.8
+###############################
+running following processes
+
+	julia --project=. policy_qmdp.jl 1 1
+
+
+###############################
+command outputs: 
+
+
+Running main
+Starting to solve
+Constructed Γ vector with 15 actions and 150000 states
+Iteration 1
+Got average utility -0.030399999999978257
+Iteration 2
+Got average utility 0.031141000000017228
+Iteration 3
+Got average utility 0.22591664999937963
+Iteration 4
+Got average utility 0.566542869999767
+Iteration 5
+Got average utility 1.0604885635003705
+Iteration 6
+Got average utility 1.6926280465414802
+Iteration 7
+Got average utility 2.446600362324625
+Iteration 8
+Got average utility 3.3408978888188106
+Iteration 9
+Got average utility 4.360422501182239
+Iteration 10
+Got average utility 5.486909948468473
+Iteration 11
+Got average utility 6.6729044555409365
+Iteration 12
+Got average utility 7.862657447380903
+Iteration 13
+Got average utility 9.017396761842758
+Iteration 14
+Got average utility 10.117860916468183
+Iteration 15
+Got average utility 11.163436071644753
+Iteration 16

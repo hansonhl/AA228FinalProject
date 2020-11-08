@@ -1,0 +1,109 @@
+slurm submission log: 2020-11-07 16:06:40.341190
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=2
+#SBATCH --gres=gpu:0
+#SBATCH --job-name=hansonlu-job-4695960
+#SBATCH --mem=64G
+#SBATCH --open-mode=append
+#SBATCH --output=eval_2_25_only.out
+#SBATCH --partition=john
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'julia --project=. main.jl 2 50'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1874883
+
+
+
+###############################
+
+###############################
+start time: 2020-11-07 16:07:02.397906
+machine: john6.stanford.edu
+conda env: py-3.6.8
+###############################
+running following processes
+
+	julia --project=. main.jl 2 50
+
+
+###############################
+command outputs: 
+
+
+Running main
+Loading policy from qmdp_discrete_50_2.jld
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+QMDP Mean Total Reward: 0.854, StdErr Total Reward: 1.222
+###############################
+end time: 2020-11-07 16:17:22.617160
+elapsed time: 0:10:20.219254
