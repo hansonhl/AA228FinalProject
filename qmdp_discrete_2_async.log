@@ -1,0 +1,67 @@
+Running main
+Starting to solve
+Constructed Γ vector with 15 actions and 150000 states
+Iteration 1
+Got average utility 11.110460621448992
+Iteration 2
+Got average utility 24.61188680784197
+Iteration 3
+Got average utility 30.316985002789423
+Iteration 4
+Got average utility 32.047937918914286
+Iteration 5
+Got average utility 32.72225830391114
+Iteration 6
+Got average utility 32.96121832387261
+Iteration 7
+Got average utility 33.01073641946235
+Iteration 8
+Got average utility 32.99128004265128
+Iteration 9
+Got average utility 32.95015522902045
+Iteration 10
+Got average utility 32.90420768566004
+Iteration 11
+Got average utility 32.858775197149775
+Iteration 12
+Got average utility 32.815157607082945
+Iteration 13
+Got average utility 32.77356645914342
+Iteration 14
+Got average utility 32.733979268443186
+Iteration 15
+Got average utility 32.69632742049154
+Iteration 16
+Got average utility 32.66052204381523
+Iteration 17
+Got average utility 32.626485816747746
+Iteration 18
+Got average utility 32.59413705727601
+Iteration 19
+Got average utility 32.56339230474384
+Iteration 20
+Got average utility 32.53417216907332
+Iteration 21
+Got average utility 32.50640285137827
+Iteration 22
+Got average utility 32.48001450990265
+Iteration 23
+Got average utility 32.45494007995453
+Iteration 24
+Got average utility 32.43111532429468
+Iteration 25
+Got average utility 32.40847883156081
+Iteration 26
+Got average utility 32.3869719766003
+Iteration 27
+Got average utility 32.36653885661057
+Iteration 28
+Got average utility 32.347126211046096
+Iteration 29
+Got average utility 32.328683329213874
+Iteration 30
+Got average utility 32.31116195279753
+Average time per iteration: 59.77326788953334 s
+Finished solving, got policy
+Saving policy to qmdp_discrete_2_async.jld
+julia policy_qmdp_async.jl 2  1792.07s user 7.02s system 99% cpu 30:10.07 total
