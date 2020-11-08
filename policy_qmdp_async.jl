@@ -134,7 +134,7 @@ function main()
     config = parse(Int64, ARGS[1])
     cont_m = RoombaPOMDP(sensor=sensor, mdp=RoombaMDP(config=config))
 
-    P = DiscreteLidarRoombaPOMDP(cont_m, 25, 25, 10, 5.0, 0.5, 1:0.5:80)
+    P = DiscreteLidarRoombaPOMDP(cont_m, 50, 50, 20, 5.0, 0.5, 1:0.5:80)
     M = QMDP(30)
 
     println("Starting to solve")
